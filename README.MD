@@ -6,3 +6,5 @@
 2. instale o mongoDB
     `npm install mongoDB`
 
+4. instale o bcrypt
+    `npm install bcrypt`

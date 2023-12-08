@@ -3,15 +3,14 @@ require('dotenv').config();
 
 DBPASSWORD = process.env.DBPASSWORD;
 
-mongoose.connect(`mongodb+srv://fabricio176:${DBPASSWORD}@auth-api.gjlauri.mongodb.net/?retryWrites=true&w=majority`, {}, (error)=>{
-    if(error){
-        console.log('Falha ao autenticar com mongodb');
-        console.log(error);
-        return;
-    }
-
-    console.log('Conexão com mongodb Estável');
-} );
+mongoose.connect(`mongodb+srv://fabricio176:${DBPASSWORD}@auth-api.bchbvjm.mongodb.net/?retryWrites=true&w=majority`, {})
+    .then(() =>{
+        console.log('Conexão com MongoDB estabelecida');
+    })
+    .catch(error =>{
+        console.log('Falha ao autenticar com MongoDB');
+        console.error(error);
+    });
 
 mongoose.Promise = global.Promise;
 
