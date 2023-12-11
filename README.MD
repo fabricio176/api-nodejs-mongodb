@@ -6,5 +6,11 @@
 2. instale o mongoDB
     `npm install mongoDB`
 
-4. instale o bcrypt
+3. instale o bcrypt
     `npm install bcrypt`
+
+4. instale o nodemon
+    `npm install nodemon`
+
+5. instale o jwt(jsonwebtoken)
+    `npm install jsonwebtoken`
