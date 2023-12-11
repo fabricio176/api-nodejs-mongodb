@@ -7,6 +7,15 @@ const UserModel = require('../models/User');
 
 const router = express.Router();
 
+const generateToken= (user = {}) =>{
+     return jwt.sign({
+        id: user.id,
+        name: user.name
+    }, authConfig.secret ,{
+        expiresIn: 86400
+    });
+}
+
 router.post('/register', async (req,res) =>{
 
     const {email} = req.body;
@@ -15,18 +24,17 @@ router.post('/register', async (req,res) =>{
         return res.status(400).json({
             error: true,
             message: "Email already registered"
-        })
+        });
     }
 
-    const User = await UserModel.create(req.body);
+    const user = await UserModel.create(req.body);
 
-    User.password = undefined;
-   
+    user.password = undefined;
+
     return res.json({
-        error: false,
-        message: "Registered sucefull!",
-        data: User
-    })
+        user,
+        token:generateToken(user)
+    });
 })
 
 router.post("/authenticate", async(req, res)=>{
@@ -51,15 +59,11 @@ router.post("/authenticate", async(req, res)=>{
 
     user.password = undefined;
 
-    const token = jwt.sign({
-        id: user.id,
-        name: user.name
-    }, authConfig.secret ,{});
-
     return res.json({
         user,
-        token
+        token:generateToken(user)
     });
 })
+
 
 module.exports = router;
